@@ -1,0 +1,42 @@
+@import './base.css';
+
+#app {
+  width: 100%;
+  margin: 0 auto;
+  padding: 4rem;
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+}
+
+@font-face {
+  font-family: 'DigitanyRegularDeluxe';
+  src: url('@/assets/fonts/DigitanyRegularDeluxe.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#footer {
+  text-align: center;
+  margin: auto;
+  margin-top: 2rem;
+}
