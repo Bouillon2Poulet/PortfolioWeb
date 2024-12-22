@@ -1,131 +1,154 @@
 <template>
-  <div class="gallery">
-    <div class="gallery-container">
-      <img v-for="(item, index) in items" :key="index" :src="item.src"
-        :class="['gallery-item', 'gallery-item-' + getClassIndex(index)]" :data-index="index" alt="Gallery item" />
-    </div>
-    <div class="gallery-controls">
-      <button v-for="control in controls" :key="control" :class="'gallery-controls-' + control"
-        @click="setCurrentState(control)">
-        {{ control }}
-      </button>
+  <div class="carousel">
+    <div
+      v-for="(project, index) in projects"
+      :key="index"
+      class="perspective-container"
+      :ref="setCardRef"
+      :style="cardStyles[index]"
+    >
+      <div class="carousel-card">
+        <h2 class="carousel-card-title">{{ project.title }}</h2>
+        <img :src="project.image" alt="Project image" class="carousel-card-image" />
+        <p class="carousel-card-description">{{ project.description }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "CarouselComponent",
   data() {
     return {
-      items: [
-        { src: "/src/images/1.jpg" },
-        { src: "/src/images/2.png" },
-        { src: "/src/images/3.jpg" },
-        { src: "/src/images/4.png" },
-        { src: "/src/images/5.jpg" },
+      projects: [
+        { title: 'Project 1', image: 'src/images/1.jpg', description: 'Description 1' },
+        { title: 'Project 2', image: 'src/images/2.png', description: 'Description 2' },
+        { title: 'Project 3', image: 'src/images/3.jpg', description: 'Description 3' },
+        { title: 'Project 4', image: 'src/images/4.png', description: 'Description 1' },
+        { title: 'Project 5', image: 'src/images/5.jpg', description: 'Description 2' },
       ],
-      controls: ["previous", "next"],
-    };
+      cards: [], // Références aux cartes
+      cardStyles: [], // Styles dynamiques pour chaque carte
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.updateCardStyles)
+    window.addEventListener('resize', this.updateCardStyles)
+    this.updateCardStyles() // Mise à jour initiale
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.updateCardStyles)
+    window.removeEventListener('resize', this.updateCardStyles)
   },
   methods: {
-    setCurrentState(direction) {
-      if (direction === "previous") {
-        this.items.unshift(this.items.pop());
-      } else {
-        this.items.push(this.items.shift());
+    setCardRef(el) {
+      if (el && !this.cards.includes(el)) {
+        this.cards.push(el)
       }
     },
-    getClassIndex(index) {
-      return ((index - 2 + this.items.length) % this.items.length) + 1;
+    updateCardStyles() {
+      const centerX = window.innerWidth / 2 // Position centrale de la fenêtre
+      const cardWidth = 300 // Largeur initiale de la carte
+      const maxRotation = 45 // Rotation max ±45°
+
+      this.cardStyles = this.cards.map((card) => {
+        const rect = card.getBoundingClientRect()
+        const cardCenterX = rect.left + rect.width / 2
+        const distanceFromCenter = cardCenterX - centerX
+
+        // Calcul de la rotation, de l'échelle et de la translation
+        const rotation = (distanceFromCenter / centerX) * maxRotation // Rotation max ±45°
+        const scale = 1 - Math.abs(distanceFromCenter / centerX) * 0.3 // Réduit l'échelle à distance
+
+        // Calculer la translation en X pour compenser la rotation
+        const translateX = (distanceFromCenter / centerX) * 150 // Ajuste la distance ici (150px peut être modifié selon le besoin)
+
+        // Déduire la taille de la carte en fonction de sa rotation (lorsque la carte est tournée, elle occupe moins de place)
+        const widthAdjustment = 1 - Math.abs(distanceFromCenter / centerX) * 0.4 // Ajuster la largeur de la carte
+
+        return {
+          transform: `
+          rotateY(${rotation}deg)
+          scale(${Math.max(scale, 0.5)})
+          translateX(${translateX}px)`, // Applique la translation
+          width: `${cardWidth * widthAdjustment}px`, // Ajuste la largeur de la carte
+          zIndex: 1000 - Math.abs(distanceFromCenter), // Priorité visuelle
+        }
+      })
     },
   },
-};
+}
 </script>
 
 <style>
-.gallery {
-  width: 100%;
-}
-
-.gallery-container {
-  align-items: center;
-  display: flex;
-  height: 400px;
-  margin: 0 auto;
-  max-width: 1000px;
-  position: relative;
-}
-
-.gallery-item {
-  height: 200px;
-  opacity: 0;
-  position: absolute;
-  transition: all 0.3s ease-in-out;
-  width: 330px;
-  z-index: 0;
-  border-radius: 15px;
-  background-size: contain;
-}
-
-.gallery-item-1 {
-  left: 15px;
-  opacity: 0.4;
-  transform: translateX(-50%);
-}
-
-.gallery-item-2,
-.gallery-item-4 {
-  height: 250px;
-  opacity: 0.8;
-  width: 380px;
-  z-index: 1;
-}
-
-.gallery-item-2 {
-  left: 30%;
-  transform: translateX(-50%);
-}
-
-.gallery-item-3 {
-  box-shadow: -2px 5px 33px 6px rgba(0, 0, 0, 0.35);
-  height: 300px;
-  opacity: 1;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 430px;
-  z-index: 2;
-}
-
-.gallery-item-4 {
-  left: 70%;
-  transform: translateX(-50%);
-}
-
-.gallery-item-5 {
-  left: 85%;
-  opacity: 0.4;
-  transform: translateX(-50%);
-}
-
-.gallery-controls {
+/* Conteneur global pour le carousel */
+.carousel {
   display: flex;
   justify-content: center;
-  margin: 25px 0;
-  height: 100px;
+  align-items: center;
+  height: 500px;
+  perspective: 1000px; /* Perspective 3D */
+  overflow-x: hidden; /* Empêche le débordement horizontal */
+  transition: transform 0.3s ease-in-out; /* Ajout d'une transition fluide */
 }
 
-.gallery-controls button {
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-  font-size: 30px;
-  margin: 0 50px;
-  padding: 0 12px;
-  text-transform: capitalize;
+.carousel-card {
+  position: relative;
+  height: 400px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition:
+    transform 0.3s ease,
+    margin 0.3s ease,
+    z-index 0.3s ease; /* Transition fluide */
 }
 
-.gallery-controls-button:focus {
-  outline: none;
+/* Conteneur pour la transformation */
+.perspective-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 400px;
+  transform-origin: center;
+  transition:
+    transform 0.3s ease,
+    z-index 0.3s ease;
+}
+
+/* Style de la carte */
+.carousel-card {
+  width: 100%; /* S'assure que la carte respecte les dimensions du conteneur */
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Image dans la carte */
+.carousel-card-image {
+  width: 90%; /* Adapte la taille de l'image */
+  height: auto;
+  max-height: 70%; /* Limite la hauteur de l'image */
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 10px auto; /* Centrage */
+}
+
+/* Titre de la carte */
+.carousel-card-title {
+  font-size: 24px;
+  margin: 10px 0;
+  font-family: 'Sometype Mono', monospace;
+  color: blue;
+  font-weight: 600;
+}
+
+/* Description de la carte */
+.carousel-card-description {
+  font-size: 14px;
+  color: blue;
 }
 </style>
