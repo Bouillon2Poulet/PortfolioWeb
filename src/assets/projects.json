@@ -1,14 +1,44 @@
 [
   {
-    "ProjectId": 1,
+    "ProjectId": 66666,
     "ProjectName": "Les Contes des Dieux Soleils",
     "ProjectDescription": "Un jeu d'aventure et de stratégie basé sur les mythologies mésoaméricaines. Incarnez un héros et explorez des mondes mystérieux tout en découvrant des secrets anciens.",
-    "ProjectTools": ["Unreal Engine", "Blender", "Photoshop"]
+    "ProjectTools": ["Unreal Engine", "Blender", "Photoshop"],
+    "ProjectImgSrc" : "src/images/1.jpg"
   },
   {
     "ProjectId": 2,
     "ProjectName": "VR Engineering Simulator",
     "ProjectDescription": "Une application VR immersive permettant de simuler et de manipuler des modèles industriels complexes en temps réel.",
-    "ProjectTools": ["Unity", "C#", "Autodesk Maya"]
+    "ProjectTools": ["Unity", "C#", "Autodesk Maya"],
+    "ProjectImgSrc" : "src/images/2.png"
+  },
+  {
+    "ProjectId": 3,
+    "ProjectName": "AAAAAAAAAAA",
+    "ProjectDescription": "Une application VR immersive permettant de simuler et de manipuler des modèles industriels complexes en temps réel.",
+    "ProjectTools": ["Unity", "C#", "Autodesk Maya"],
+        "ProjectImgSrc" : "src/images/3.jpg"
+  },
+  {
+    "ProjectId": 3,
+    "ProjectName": "BBBBBBBBBb",
+    "ProjectDescription": "Une application VR immersive permettant de simuler et de manipuler des modèles industriels complexes en temps réel.",
+    "ProjectTools": ["Unity", "C#", "Autodesk Maya"],
+        "ProjectImgSrc" : "src/images/3.jpg"
+  },
+  {
+    "ProjectId": 3,
+    "ProjectName": "CCCCCCCCCcc",
+    "ProjectDescription": "Une application VR immersive permettant de simuler et de manipuler des modèles industriels complexes en temps réel.",
+    "ProjectTools": ["Unity", "C#", "Autodesk Maya"],
+        "ProjectImgSrc" : "src/images/3.jpg"
+  },
+  {
+    "ProjectId": 3,
+    "ProjectName": "LOULI",
+    "ProjectDescription": "Une application VR immersive permettant de simuler et de manipuler des modèles industriels complexes en temps réel.",
+    "ProjectTools": ["?????"],
+        "ProjectImgSrc" : "src/images/louli.jpg"
   }
 ]

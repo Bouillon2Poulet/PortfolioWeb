@@ -1,31 +1,33 @@
 <template>
   <div>
-    <h1>Mes Projets</h1>
+    <SubPageTitle title="Projets" />
     <CarouselComponent />
   </div>
 </template>
 
 <script>
-import projectsData from "@/assets/projects.json";
-import CarouselComponent from "@/components/CarouselComponent.vue";
+import projectsData from '@/assets/projects.json'
+import CarouselComponent from '@/components/CarouselComponent.vue'
+import SubPageTitle from '@/components/SubPageTitle.vue'
 
 export default {
-  name: "ProjectsCarousel",
+  name: 'ProjectsCarousel',
   components: {
-    CarouselComponent
+    CarouselComponent,
+    SubPageTitle,
   },
   data() {
     return {
       slides: [], // Tableau des slides à afficher
-    };
+    }
   },
   created() {
     // Génération des slides à partir des projets
-    this.slides = projectsData.map(project => ({
+    this.slides = projectsData.map((project) => ({
       src: `@/assets/projects/${project.ProjectId}/slide_img.png`, // Chemin de l'image
-    }));
+    }))
   },
-};
+}
 </script>
 
 <style>

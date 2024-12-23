@@ -1,21 +1,24 @@
 <template>
   <div class="carousel-card" :style="style">
-    <h2 class="carousel-card-title">{{ project.title }}</h2>
-    <img :src="project.image" alt="Project image" class="carousel-card-image" />
-    <p class="carousel-card-description">{{ project.description }}</p>
+    <!-- Utilisation de <router-link> pour la redirection -->
+    <router-link :to="`/Project/${project.ProjectName}`" class="image-link">
+      <img :src="project.ProjectImgSrc" alt="Project image" class="carousel-card-image" />
+    </router-link>
+    <!-- <p class="carousel-card-description">{{ project.ProjectTools }}</p> -->
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    project: {
-      type: Object,
-      required: true,
-    },
     style: {
       type: Object,
       required: true,
+    },
+    project: {
+      type: Object,
+      required: true,
+      default: () => ({}),
     },
   },
 }
@@ -23,31 +26,35 @@ export default {
 
 <style>
 .carousel-card {
-  position: absolute;
-  width: 300px;
-  height: 400px;
-  margin: 0;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
+  /* Assurez-vous que la div occupe tout l'espace disponible */
+  position: relative;
+  width: 100%; /* Assurez-vous que la carte occupe toute la largeur de son conteneur */
+  height: 100%; /* Assurez-vous que la carte occupe toute la hauteur de son conteneur */
 }
 
-.carousel-card img {
-  width: 100%;
-  height: 65%;
-  object-fit: cover;
+.image-link {
+  display: block; /* Fait en sorte que le <router-link> se comporte comme un bloc */
+  width: 100%; /* Assure que le lien prend toute la largeur de la div */
+  height: 100%; /* Assure que le lien prend toute la hauteur de la div */
+}
+
+.carousel-card-image {
+  width: 100%; /* Ajuste l'image à la largeur de la div */
+  height: 100%; /* Ajuste l'image à la hauteur de la div */
+  object-fit: cover; /* Remplir toute la div tout en conservant le ratio */
   border-radius: 10px;
 }
 
 .carousel-card-title {
   font-size: 24px;
-  text-align: center;
+  margin: 10px 0;
+  font-family: 'Sometype Mono', monospace;
+  color: blue;
+  font-weight: 600;
 }
 
 .carousel-card-description {
-  font-size: 14px;
-  text-align: center;
-  padding: 10px;
+  font-size: 18px;
+  color: blue;
 }
 </style>
