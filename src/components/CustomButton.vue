@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue'
+import { ref, defineEmits, defineProps } from 'vue'
 
 // Définir les props pour l'image et le texte au survol
 const props = defineProps({
@@ -10,7 +10,12 @@ const props = defineProps({
   hoverText: {
     type: String,
     required: true,
-  }
+  },
+  canActivate: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 })
 
 // Définir un événement personnalisé pour notifier le clic
@@ -23,14 +28,24 @@ const isActive = ref(false)
 
 // Fonction qui inverse l'état du bouton et émet l'événement
 const toggleButton = () => {
-  isActive.value = !isActive.value
-  emit('click', isActive.value) // Émettre l'état lorsque le bouton est cliqué
+  if (props.canActivate) { // Remplacer 'this.canActivate' par 'props.canActivate'
+    isActive.value = !isActive.value
+    emit('click', isActive.value) // Émettre l'état lorsque le bouton est cliqué
+  } else {
+    emit('click', true) // Émettre l'état lorsque le bouton est cliqué
+  }
 }
 </script>
 
 <template>
-  <button class="square-button" :class="{ active: isActive }" @click="toggleButton" :title="props.hoverText">
-    <img :src="props.imageUrl" alt="Button Image" /> <!-- Utiliser l'URL passée en prop -->
+  <button
+    class="square-button"
+    :class="{ active: isActive }"
+    @click="toggleButton"
+    :title="props.hoverText"
+  >
+    <img :src="props.imageUrl" alt="Button Image" />
+    <!-- Utiliser l'URL passée en prop -->
   </button>
 </template>
 

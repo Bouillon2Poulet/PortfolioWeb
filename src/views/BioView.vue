@@ -17,9 +17,6 @@
       </div>
     </div>
   </div>
-  <div>
-    <FooterComponent id="footer" />
-  </div>
 </template>
 
 <script>

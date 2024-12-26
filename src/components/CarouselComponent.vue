@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="isLoaded"
     class="carousel-container"
     ref="carouselContainer"
     @mousedown="startDrag"
@@ -41,28 +42,41 @@ export default {
   },
   data() {
     return {
+      projects: null,
       cards: Array.from({ length: 12 }, () => ({})),
-      radius: 600, // Distance de la caméra
+      radius: 450, // Distance de la caméra
       totalCards: 12, // Nombre total de cartes
-      cardWidth: 600, // Largeur des cartes
-      cardHeight: 600, // Hauteur des cartes
+      cardWidth: 400, // Largeur des cartes
+      cardHeight: 400, // Hauteur des cartes
       dragStartX: 0, // Position de départ du drag (horizontal)
       rotationAngle: 0, // Angle actuel de rotation du carousel
       nextProjectIndex: 0,
       visibleCardsIndex: [10, 11, 0, 1, 2],
       visibleProjectsIndex: [],
+      isLoaded: false, // Indicateur de chargement
     }
   },
   mounted() {
-    this.$nextTick(() => {
-      // Après le montage, stocke les références dans `cardsVue`
-      for (let i = 0; i < 12; i++) {
-        this.cards.push(this.$refs['CarouselCard' + i])
-      }
-    })
-    this.visibleProjectsIndex = [Projects.length - 2, Projects.length - 1, 0, 1, 2]
+    this.loadProjects()
+    // this.$nextTick(() => {
+    //   // Après le montage, stocke les références dans `cardsVue`
+    //   for (let i = 0; i < 12; i++) {
+    //     this.cards.push(this.$refs['CarouselCard' + i])
+    //   }
+    // })
   },
   methods: {
+    async loadProjects() {
+      try {
+        const response = await fetch('src/assets/projects.json') // Exemple de fetch
+        this.projects = await response.json()
+        console.log('LOADED')
+        this.isLoaded = true // Marquer comme chargé
+        this.visibleProjectsIndex = [Projects.length - 2, Projects.length - 1, 0, 1, 2]
+      } catch (error) {
+        console.error('Erreur lors du chargement des projets', error)
+      }
+    },
     // Méthode pour obtenir la largeur de la div "carousel-container"
     getContainerWidth() {
       const carouselContainer = this.$refs.carouselContainer
@@ -76,11 +90,13 @@ export default {
     },
 
     getAssociatedProject(index) {
+      console.log(index)
       if (this.visibleCardsIndex.includes(index)) {
         console.log(Projects[this.visibleProjectsIndex[this.visibleCardsIndex.indexOf(index)]])
         return Projects[this.visibleProjectsIndex[this.visibleCardsIndex.indexOf(index)]]
       } else {
-        return {}
+        console.log('!!')
+        return { ProjectId: -1 }
       }
     },
 
@@ -105,6 +121,7 @@ export default {
       const scale = Math.max(0.5, 1 - Math.abs(distance) / 1000)
 
       const display = this.visibleCardsIndex.includes(index) ? 'block' : 'none'
+      const zIndex = this.visibleCardsIndex.includes(index) ? 100 : 0
       const opacity = (() => {
         const cardIndex = this.visibleCardsIndex.indexOf(index) // Trouve l'index de 'index' dans le tableau 'visibleCardsIndex'
 
@@ -120,6 +137,7 @@ export default {
         width: `${this.cardWidth * scale}px`,
         height: `${this.cardHeight * scale}px`,
         opacity: opacity, // Applique l'opacité calculée
+        zIndex: zIndex,
       }
     },
 
@@ -183,7 +201,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 600px;
+  height: 40vh;
   margin-top: 2rem;
   margin-bottom: 2rem;
   perspective: 2000px; /* Perspective 3D */

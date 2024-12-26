@@ -1,7 +1,11 @@
 <template>
   <div class="carousel-card" :style="style">
     <!-- Utilisation de <router-link> pour la redirection -->
-    <router-link :to="`/Project/${project.ProjectName}`" class="image-link">
+    <router-link
+      v-if="project.ProjectId != -1"
+      :to="`/project/${project.ProjectId}`"
+      class="image-link"
+    >
       <img :src="project.ProjectImgSrc" alt="Project image" class="carousel-card-image" />
     </router-link>
     <!-- <p class="carousel-card-description">{{ project.ProjectTools }}</p> -->
@@ -17,8 +21,12 @@ export default {
     },
     project: {
       type: Object,
-      required: true,
+      required: false,
       default: () => ({}),
+    },
+    visibility: {
+      type: Boolean,
+      default: true, // La valeur par défaut de la visibilité
     },
   },
 }

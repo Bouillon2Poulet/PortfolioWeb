@@ -8,22 +8,21 @@
         <Home3DWidget />
       </div>
     </div>
-    <FooterComponent id="footer" />
   </div>
 </template>
 
 <script>
-import Home3DWidget from '@/components/Home3DWidget.vue';
-import FooterComponent from '../components/FooterComponent.vue';
-import HomeLeftSide from '@/components/HomeLeftSide.vue';
+import Home3DWidget from '@/components/Home3DWidget.vue'
+import FooterComponent from '../components/FooterComponent.vue'
+import HomeLeftSide from '@/components/HomeLeftSide.vue'
 
 export default {
   components: {
     FooterComponent,
     Home3DWidget,
-    HomeLeftSide
+    HomeLeftSide,
   },
-};
+}
 </script>
 
 <style scoped>

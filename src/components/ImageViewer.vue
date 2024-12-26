@@ -1,41 +1,47 @@
 <script setup lang="ts">
-import { ref, defineExpose } from 'vue';
-import VueMagnifier from '@websitebeaver/vue-magnifier';
-import '@websitebeaver/vue-magnifier/styles.css';
+import { ref, defineExpose } from 'vue'
+import VueMagnifier from '@websitebeaver/vue-magnifier'
+import '@websitebeaver/vue-magnifier/styles.css'
 
 // Définir une donnée réactive pour gérer l'état du magnifier
-const mgShow = ref(false);
+const mgShow = ref(false)
 
 // Fonction pour inverser l'état de mgShow
 const toggleMagnifier = () => {
-  mgShow.value = !mgShow.value;
-  console.log('Toggle magnifier, current state:', mgShow.value);
-};
+  mgShow.value = !mgShow.value
+  console.log('Toggle magnifier, current state:', mgShow.value)
+}
 
 // Exposer la fonction toggleMagnifier pour qu'elle soit accessible depuis le parent
 defineExpose({
-  toggleMagnifier
-});
+  toggleMagnifier,
+})
 </script>
 
 <script lang="ts">
 export default {
-  name: "ImageViewer",
+  name: 'ImageViewer',
   props: {
     path: {
       type: String,
       required: true,
-      default: "" // Chemin par défaut
-    }
-  }
-};
+      default: '', // Chemin par défaut
+    },
+  },
+}
 </script>
 
 <template>
   <div class="image-wrapper">
     <!-- L'image avec la propriété mgShow qui change -->
-    <VueMagnifier class="img-magnifier" :src="path" height="70%" width="auto" mgWidth="250" mgHeight="250"
-      :mgShow="mgShow" />
+    <VueMagnifier
+      class="img-magnifier"
+      :src="path"
+      width="auto"
+      mgWidth="250"
+      mgHeight="250"
+      :mgShow="mgShow"
+    />
   </div>
 </template>
 
@@ -44,10 +50,8 @@ export default {
   position: relative;
   display: flex;
   justify-content: center;
-  padding-top: 2rem;
-  height: 100vh;
+  height: 80vh;
   background-color: white;
-  overflow: hidden;
 }
 
 .img-magnifier {

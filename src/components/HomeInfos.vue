@@ -1,33 +1,27 @@
 <template>
   <div class="data">
-    <div class="name">
-      Romain<br>SERRES
-    </div>
-    <div class="title">
-      Développeur<br>logiciel
-    </div>
+    <div class="name">Romain<br />SERRES</div>
+    <div class="title">Développeur<br />logiciel</div>
     <div class="links">
-      <ul>
-        <li>
-          <router-link to="/bio">Bio</router-link>
-        </li>
-        <li>
-          <router-link to="/CV">CV</router-link>
-        </li>
-        <li>
-          <router-link to="/Projects">Projets</router-link>
-        </li>
-        <li>
-          <a href="#">Liens</a>
-        </li>
-      </ul>
+      <div class="link">
+        <router-link to="/bio"><h>⌘ Bio</h></router-link>
+      </div>
+      <div class="link">
+        <router-link to="/CV"><h>⌘ CV</h></router-link>
+      </div>
+      <div class="link">
+        <router-link to="/Projects"><h>⌘ Projets</h></router-link>
+      </div>
+      <div class="link">
+        <router-link to="/Links"><h>⌘ Liens</h></router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HomeInfos"
+  name: 'HomeInfos',
 }
 </script>
 
@@ -41,29 +35,35 @@ export default {
 }
 
 .title {
-  font-family: "Sometype Mono", monospace;
-  font-size: 50px;
+  font-family: 'Sometype Mono', monospace;
+  font-size: 40px;
   line-height: 0.95;
   margin-top: auto;
   font-weight: 500;
 }
 
 .links {
-  font-size: 30px;
-  line-height: 1.2;
+  font-size: 25px;
+  line-height: 1;
   margin-top: auto;
-  /* Pousse la div links vers le bas */
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+
+.link {
+  padding-top: 5px;
 }
 
 .yarndings-20-regular {
-  font-family: "Yarndings 20", serif;
+  font-family: 'Yarndings 20', serif;
   font-weight: 400;
   font-style: normal;
 }
 
 .data {
   background-color: rgb(230, 230, 230);
-  font-family: "Sometype Mono", monospace;
+  font-family: 'Sometype Mono', monospace;
   font-optical-sizing: auto;
   display: flex;
   /* Active Flexbox */
