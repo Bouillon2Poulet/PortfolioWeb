@@ -1,43 +1,44 @@
 <template>
-    <div class="verticalContainer">
-        <HomeInfos />
-        <div class="technicalStack"></div>
-        <div class="bottomPart"></div>
+  <div class="verticalContainer">
+    <HomeInfos />
+    <div class="technicalStack"></div>
+    <div class="bottomPart">
+      <P5Canvas />
     </div>
+  </div>
 </template>
 
 <script>
-import HomeInfos from './HomeInfos.vue';
+import HomeInfos from './HomeInfos.vue'
+import P5Canvas from './P5Canvas.vue'
 
 export default {
-    name: "HomeLeftSide",
-    components: {
-        HomeInfos
-    }
+  name: 'HomeLeftSide',
+  components: {
+    HomeInfos,
+    P5Canvas,
+  },
 }
 </script>
 
 <style>
 .verticalContainer {
-    display: grid;
-    grid-template-columns: 66% auto;
-    grid-template-rows: 1fr 1fr;
-    grid-gap: 2rem;
-    height: 100%;
-    width: 100%;
+  display: grid;
+  grid-template-columns: 66% auto;
+  grid-template-rows: 60% auto;
+  grid-gap: 2rem;
+  width: 100%;
+  height: 100%;
 }
 
 .bottomPart {
-    background-color: red;
-    height: 100%;
-    grid-column: 1/3;
+  background-color: red;
+  grid-column: 1/3;
 }
 
 .technicalStack {
-    background-color: rgb(26, 82, 63);
-    overflow: hidden;
-    /* Empêche le débordement de l'élément */
-    height: 100%;
-    /* Ajuste la hauteur de la colonne */
+  background-color: rgb(26, 82, 63);
+  overflow: hidden;
+  height: 100%;
 }
 </style>

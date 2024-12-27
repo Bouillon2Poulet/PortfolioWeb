@@ -79,7 +79,7 @@ export default {
 <style scoped>
 .canvas {
     width: 100%;
-    height: 100%;
+    height: 80vh;
     background-color: #e0e0e0;
     /* Couleur de fond */
     display: flex;
