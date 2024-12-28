@@ -3,18 +3,19 @@
     <div class="name">Romain<br />SERRES</div>
     <div class="title">Développeur<br />logiciel</div>
     <div class="links">
-      <div class="link">
-        <router-link to="/bio"><h>⌘ Bio</h></router-link>
-      </div>
-      <div class="link">
-        <router-link to="/CV"><h>⌘ CV</h></router-link>
-      </div>
-      <div class="link">
-        <router-link to="/Projects"><h>⌘ Projets</h></router-link>
-      </div>
-      <div class="link">
-        <router-link to="/Links"><h>⌘ Liens</h></router-link>
-      </div>
+      <router-link to="/bio"
+        ><h class="link"> <span class="command">⌘</span> Bio </h></router-link
+      >
+
+      <router-link to="/CV">
+        <h class="link"><span class="command">⌘</span> CV</h>
+      </router-link>
+      <router-link to="/Projects">
+        <h class="link"><span class="command">⌘</span> Projets</h>
+      </router-link>
+      <router-link to="/Links">
+        <h class="link"><span class="command">⌘</span> Liens</h>
+      </router-link>
     </div>
   </div>
 </template>
@@ -53,26 +54,25 @@ export default {
 
 .link {
   padding-top: 5px;
+  display: inline;
 }
 
-.yarndings-20-regular {
-  font-family: 'Yarndings 20', serif;
-  font-weight: 400;
-  font-style: normal;
+.command {
+  display: inline-block;
+  transition: transform 0.3s ease; /* Animation fluide */
+}
+
+.link:hover .command {
+  transform: rotate(45deg); /* Rotation complète */
 }
 
 .data {
-  background-color: rgb(230, 230, 230);
   font-family: 'Sometype Mono', monospace;
   font-optical-sizing: auto;
   display: flex;
-  /* Active Flexbox */
   flex-direction: column;
-  /* Aligne les enfants en colonne */
   justify-content: space-between;
-  /* Aligne les éléments au top et au bottom */
   height: 100%;
-  /* Assure que la div occupe toute la hauteur */
   color: blue;
 }
 </style>

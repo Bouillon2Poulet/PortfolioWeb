@@ -1,7 +1,9 @@
 <template>
   <div class="verticalContainer">
     <HomeInfos />
-    <div class="technicalStack"></div>
+    <div class="technicalStack">
+      <Home3DWidget />
+    </div>
     <div class="bottomPart">
       <P5Canvas />
     </div>
@@ -11,12 +13,14 @@
 <script>
 import HomeInfos from './HomeInfos.vue'
 import P5Canvas from './P5Canvas.vue'
+import Home3DWidget from './Home3DWidget.vue'
 
 export default {
   name: 'HomeLeftSide',
   components: {
     HomeInfos,
     P5Canvas,
+    Home3DWidget,
   },
 }
 </script>
@@ -32,7 +36,6 @@ export default {
 }
 
 .bottomPart {
-  background-color: red;
   grid-column: 1/3;
 }
 

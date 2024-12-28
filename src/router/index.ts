@@ -4,6 +4,7 @@ import BioView from '../views/BioView.vue'
 import ResumeView from '../views/ResumeView.vue'
 import ProjectsView from '../views/ProjectsView.vue'
 import ProjectView from '../views/ProjectView.vue'
+import LinksView from '@/views/LinksView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,10 @@ const router = createRouter({
       name: 'project',
       component: ProjectView,
       props: true,
+    },    {
+      path: '/links',
+      name: 'links',
+      component: LinksView
     },
   ],
 })

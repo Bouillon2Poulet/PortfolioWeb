@@ -5,7 +5,7 @@
         <HomeLeftSide />
       </div>
       <div class="right">
-        <Home3DWidget />
+        <!-- PROJETS A LA UNE -->
       </div>
     </div>
   </div>
@@ -32,8 +32,6 @@ export default {
   grid-gap: 2rem;
   /* Deux colonnes de largeur égale */
   height: 80vh;
-  /* Hauteur de l'écran */
-  background-color: green;
 }
 
 .left {

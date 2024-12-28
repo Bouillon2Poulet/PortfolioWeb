@@ -14,7 +14,8 @@ a {
   padding: 3px;
 }
 a:hover {
-color: deepskyblue;
+color: rgb(255, 216, 60);
+/* text-shadow: rgb(255, 240, 180); */
 }
 
 @media (hover: hover) {
@@ -52,4 +53,16 @@ color: deepskyblue;
   font-family: "DigitanyRegularDeluxe", regular;
   font-weight: 500;
   color:blue;
+}
+
+/* Couleur de sélection pour les navigateurs modernes */
+::selection {
+  background-color: rgb(255, 240, 180); /* Couleur de fond */
+  color: white; /* Couleur du texte */
+}
+
+/* Couleur de sélection pour Firefox */
+::-moz-selection {
+  background-color: rgb(255, 240, 180); /* Couleur de fond */
+  color: white; /* Couleur du texte */
 }
